@@ -11,8 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yoesuv.infinite_scroll.compose.R
 
 @Composable
 fun HomeScreen(
@@ -29,7 +31,7 @@ fun HomeScreen(
         Button(
             onClick = onPaginationListClick
         ) {
-            Text(text = "Pagination List")
+            Text(text = stringResource(R.string.pagination_list))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -37,7 +39,7 @@ fun HomeScreen(
         Button(
             onClick = onPaginationGridClick
         ) {
-            Text(text = "Pagination Grid")
+            Text(text = stringResource(R.string.pagination_grid))
         }
     }
 }

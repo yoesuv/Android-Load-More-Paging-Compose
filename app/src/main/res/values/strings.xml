@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Infinite Scroll Compose</string>
+    <string name="pagination_list">Pagination List</string>
+    <string name="pagination_grid">Pagination Grid</string>
 </resources>
