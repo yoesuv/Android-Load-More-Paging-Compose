@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.compose.ui.theme
+package com.yoesuv.infinite_scroll.core.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
