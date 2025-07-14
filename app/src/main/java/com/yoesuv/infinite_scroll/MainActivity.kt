@@ -15,6 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
 import com.yoesuv.infinite_scroll.feature.home.HomeScreen
+import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridScreen
+import com.yoesuv.infinite_scroll.feature.paging_list.PagingListScreen
 import com.yoesuv.infinite_scroll.feature.splash.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    
+
     NavHost(
         navController = navController,
         startDestination = AppRoute.Splash,
@@ -53,14 +55,20 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable<AppRoute.Home> {
             HomeScreen(
                 onPaginationListClick = {
-                    // TODO: Navigate to pagination list screen when implemented
+                    navController.navigate(AppRoute.PagingList)
                 },
                 onPaginationGridClick = {
-                    // TODO: Navigate to pagination grid screen when implemented
+                    navController.navigate(AppRoute.PagingGrid)
                 }
             )
         }
-        
-        // Add more routes as needed
+
+        composable<AppRoute.PagingList> {
+            PagingListScreen()
+        }
+
+        composable<AppRoute.PagingGrid> {
+            PagingGridScreen()
+        }
     }
 }
