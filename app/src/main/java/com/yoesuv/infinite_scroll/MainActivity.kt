@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.yoesuv.infinite_scroll.core.di.ViewModelFactory
+import com.yoesuv.infinite_scroll.core.models.PostModel
 import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
 import com.yoesuv.infinite_scroll.feature.detail_post.DetailPostScreen
@@ -20,6 +21,8 @@ import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridViewModel
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListScreen
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListViewModel
 import com.yoesuv.infinite_scroll.feature.splash.SplashScreen
+import com.yoesuv.infinite_scroll.utils.CustomNavTypes
+import kotlin.reflect.typeOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +69,7 @@ fun AppNavigation() {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingListViewModel = viewModel(factory = factory)
             PagingListScreen(
-                navHost = navController, 
+                navHost = navController,
                 viewModel = viewModel
             )
         }
@@ -75,16 +78,30 @@ fun AppNavigation() {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingGridViewModel = viewModel(factory = factory)
             PagingGridScreen(
-                navHost = navController, 
+                navHost = navController,
                 viewModel = viewModel
             )
         }
-        
-        composable<AppRoute.DetailPost> { backStackEntry ->
-            val route = backStackEntry.toRoute<AppRoute.DetailPost>()
+
+        composable<AppRoute.DetailPost>(
+            typeMap = mapOf(
+                typeOf<PostModel>() to CustomNavTypes.PostModelType
+            )
+        ) { backStackEntry ->
+            //val route = backStackEntry.toRoute<AppRoute.DetailPost>()
+            val route = backStackEntry.savedStateHandle.toRoute<AppRoute.DetailPost>(
+                typeMap = mapOf(
+                    typeOf<PostModel>() to CustomNavTypes.PostModelType
+                )
+            )
             DetailPostScreen(
                 navHost = navController,
-                post = route.post
+                post = PostModel(
+                    id = 1,
+                    userId = 27,
+                    title = "this is title",
+                    body = "Lorem ipsum dolor sit amit"
+                )
             )
         }
     }
