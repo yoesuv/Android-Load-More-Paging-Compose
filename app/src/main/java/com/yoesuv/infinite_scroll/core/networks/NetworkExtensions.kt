@@ -6,6 +6,8 @@ import io.ktor.client.plugins.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.serialization.SerializationException
 import java.io.IOException
 
 /**
@@ -24,35 +26,55 @@ inline fun <reified T> HttpClient.safeRequest(
         // Check if the response is successful
         if (response.status.value in 200..299) {
             // Parse the response body
-            try {
-                val body: T = response.body()
-                emit(NetworkResult.success(body))
-            } catch (e: Exception) {
-                emit(NetworkResult.parseError("Failed to parse response: ${e.message}"))
-            }
+            val body: T = response.body()
+            emit(NetworkResult.success(body))
         } else {
             // Handle HTTP error
             emit(NetworkResult.httpError(response.status.value, response.status.description))
         }
-    } catch (e: RedirectResponseException) {
-        // 3xx responses
-        emit(NetworkResult.httpError(e.response.status.value, "Redirect error: ${e.message}"))
-    } catch (e: ClientRequestException) {
-        // 4xx responses
-        emit(NetworkResult.httpError(e.response.status.value, "Client request error: ${e.message}"))
-    } catch (e: ServerResponseException) {
-        // 5xx responses
-        emit(
-            NetworkResult.httpError(
-                e.response.status.value,
-                "Server response error: ${e.message}"
-            )
-        )
-    } catch (e: IOException) {
-        // Network errors
-        emit(NetworkResult.networkError("Network error: ${e.message}"))
     } catch (e: Exception) {
-        // Generic errors
-        emit(NetworkResult.genericError(e))
+        throw e
+    }
+}.catch { e ->
+    // Handle exceptions outside the main flow to avoid transparency violations
+    when (e) {
+        is RedirectResponseException -> {
+            // 3xx responses
+            emit(NetworkResult.httpError(e.response.status.value, "Redirect error: ${e.message}"))
+        }
+
+        is ClientRequestException -> {
+            // 4xx responses
+            emit(
+                NetworkResult.httpError(
+                    e.response.status.value,
+                    "Client request error: ${e.message}"
+                )
+            )
+        }
+
+        is ServerResponseException -> {
+            // 5xx responses
+            emit(
+                NetworkResult.httpError(
+                    e.response.status.value,
+                    "Server response error: ${e.message}"
+                )
+            )
+        }
+
+        is IOException -> {
+            // Network errors
+            emit(NetworkResult.networkError("Network error: ${e.message}"))
+        }
+
+        else -> {
+            if (e is SerializationException || e.message?.contains("Failed to parse") == true) {
+                emit(NetworkResult.parseError("Failed to parse response: ${e.message}"))
+            } else {
+                // Generic errors
+                emit(NetworkResult.genericError(Exception("Generic error: ${e.message}")))
+            }
+        }
     }
 }
