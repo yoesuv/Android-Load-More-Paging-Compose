@@ -17,16 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
 @Composable
-fun PagingListScreen(viewModel: PagingListViewModel) {
+fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel) {
     val pagingItems = viewModel.posts.collectAsLazyPagingItems()
     Scaffold(
-        topBar = { AppTopBar(title = stringResource(R.string.pagination_list)) }
+        topBar = {
+            AppTopBar(title = stringResource(R.string.pagination_list), navigateUp = {
+                navHost.navigateUp()
+            })
+        }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier

@@ -63,13 +63,13 @@ fun AppNavigation() {
         composable<AppRoute.PagingList> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingListViewModel = viewModel(factory = factory)
-            PagingListScreen(viewModel = viewModel)
+            PagingListScreen(navHost = navController, viewModel = viewModel)
         }
 
         composable<AppRoute.PagingGrid> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingGridViewModel = viewModel(factory = factory)
-            PagingGridScreen(viewModel = viewModel)
+            PagingGridScreen(navHost = navController, viewModel = viewModel)
         }
     }
 }

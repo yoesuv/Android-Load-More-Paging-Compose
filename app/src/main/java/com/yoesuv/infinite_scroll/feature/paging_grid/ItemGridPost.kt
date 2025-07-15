@@ -1,7 +1,9 @@
 package com.yoesuv.infinite_scroll.feature.paging_grid
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,8 +26,9 @@ import com.yoesuv.infinite_scroll.core.models.PostModel
 fun ItemGridPost(post: PostModel?, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
+            .aspectRatio(1f)
+            .padding(2.dp)
+            .border(width = 1.dp, color = Color.LightGray)
             .background(Color.White)
             .padding(12.dp),
         contentAlignment = Alignment.Center
@@ -37,7 +41,8 @@ fun ItemGridPost(post: PostModel?, modifier: Modifier = Modifier) {
                 color = Color.Black
             ),
             textAlign = TextAlign.Center,
-            maxLines = 2
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

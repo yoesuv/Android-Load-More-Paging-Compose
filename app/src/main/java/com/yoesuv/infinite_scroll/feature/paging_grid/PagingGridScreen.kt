@@ -1,10 +1,12 @@
 package com.yoesuv.infinite_scroll.feature.paging_grid
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,22 +19,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
 @Composable
-fun PagingGridScreen(viewModel: PagingGridViewModel) {
+fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel) {
     val pagingItems = viewModel.posts.collectAsLazyPagingItems()
     Scaffold(
-        topBar = { AppTopBar(title = stringResource(R.string.pagination_grid)) }
+        topBar = {
+            AppTopBar(title = stringResource(R.string.pagination_grid), navigateUp = {
+                navHost.navigateUp()
+            })
+        }
     ) { innerPadding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(2.dp),
             modifier = Modifier
                 .padding(paddingValues = innerPadding)
                 .fillMaxSize()
+                .wrapContentSize()
         ) {
             items(pagingItems.itemCount) { index ->
                 val post = pagingItems[index]
