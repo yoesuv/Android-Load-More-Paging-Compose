@@ -14,6 +14,7 @@ import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
 import com.yoesuv.infinite_scroll.feature.home.HomeScreen
 import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridScreen
+import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridViewModel
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListScreen
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListViewModel
 import com.yoesuv.infinite_scroll.feature.splash.SplashScreen
@@ -66,7 +67,9 @@ fun AppNavigation() {
         }
 
         composable<AppRoute.PagingGrid> {
-            PagingGridScreen()
+            val factory = ViewModelFactory.getInstance()
+            val viewModel: PagingGridViewModel = viewModel(factory = factory)
+            PagingGridScreen(viewModel = viewModel)
         }
     }
 }

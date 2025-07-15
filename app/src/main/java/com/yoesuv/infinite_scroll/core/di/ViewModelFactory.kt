@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.yoesuv.infinite_scroll.core.networks.PostApiService
 import com.yoesuv.infinite_scroll.core.repository.PostRepository
 import com.yoesuv.infinite_scroll.core.repository.PostRepositoryImpl
+import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridViewModel
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListViewModel
 
 /**
@@ -19,6 +20,11 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 val apiService = PostApiService()
                 val repository: PostRepository = PostRepositoryImpl(apiService)
                 PagingListViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(PagingGridViewModel::class.java) -> {
+                val apiService = PostApiService()
+                val repository: PostRepository = PostRepositoryImpl(apiService)
+                PagingGridViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
