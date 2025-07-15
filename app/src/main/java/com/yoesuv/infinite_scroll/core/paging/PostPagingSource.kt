@@ -44,10 +44,11 @@ class PostPagingSource(
                     )
                 }
 
-                is NetworkResult.HttpError -> LoadResult.Error(Exception("HTTP Error: ${response.code} - ${response.message}"))
-                is NetworkResult.ParseError -> LoadResult.Error(Exception("Parse Error: ${response.error}"))
-                is NetworkResult.NetworkError -> LoadResult.Error(Exception("Network Error: ${response.error}"))
-                is NetworkResult.GenericError -> LoadResult.Error(response.error)
+                is NetworkResult.Error -> {
+                    val errorMessage = response.message ?: response.exception?.message ?: "Unknown error"
+                    LoadResult.Error(response.exception ?: Exception(errorMessage))
+                }
+
                 is NetworkResult.Loading -> LoadResult.Error(Exception("Unexpected loading state"))
             }
         } catch (e: Exception) {

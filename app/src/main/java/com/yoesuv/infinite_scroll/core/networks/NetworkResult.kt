@@ -6,34 +6,19 @@ package com.yoesuv.infinite_scroll.core.networks
  */
 sealed class NetworkResult<out T> {
     /**
+     * Loading state
+     */
+    object Loading : NetworkResult<Nothing>()
+    
+    /**
      * Successful response with data
      */
     data class Success<T>(val data: T) : NetworkResult<T>()
     
     /**
-     * HTTP error with status code and message
+     * Error state with optional error message and exception
      */
-    data class HttpError<T>(val code: Int, val message: String) : NetworkResult<T>()
-    
-    /**
-     * Error parsing the response
-     */
-    data class ParseError<T>(val error: String) : NetworkResult<T>()
-    
-    /**
-     * Network connectivity error
-     */
-    data class NetworkError<T>(val error: String) : NetworkResult<T>()
-    
-    /**
-     * Generic exception
-     */
-    data class GenericError<T>(val error: Exception) : NetworkResult<T>()
-    
-    /**
-     * Loading state
-     */
-    class Loading<T> : NetworkResult<T>()
+    data class Error(val message: String? = null, val exception: Exception? = null) : NetworkResult<Nothing>()
     
     companion object {
         /**
@@ -42,28 +27,23 @@ sealed class NetworkResult<out T> {
         fun <T> success(data: T): NetworkResult<T> = Success(data)
         
         /**
-         * Helper function to create an HttpError result
+         * Helper function to create an Error result with message
          */
-        fun <T> httpError(code: Int, message: String): NetworkResult<T> = HttpError(code, message)
+        fun <T> error(message: String): NetworkResult<T> = Error(message = message)
         
         /**
-         * Helper function to create a ParseError result
+         * Helper function to create an Error result with exception
          */
-        fun <T> parseError(error: String): NetworkResult<T> = ParseError(error)
+        fun <T> error(exception: Exception): NetworkResult<T> = Error(exception = exception)
         
         /**
-         * Helper function to create a NetworkError result
+         * Helper function to create an Error result with both message and exception
          */
-        fun <T> networkError(error: String): NetworkResult<T> = NetworkError(error)
-        
-        /**
-         * Helper function to create a GenericError result
-         */
-        fun <T> genericError(error: Exception): NetworkResult<T> = GenericError(error)
+        fun <T> error(message: String, exception: Exception): NetworkResult<T> = Error(message = message, exception = exception)
         
         /**
          * Helper function to create a Loading result
          */
-        fun <T> loading(): NetworkResult<T> = Loading()
+        fun <T> loading(): NetworkResult<T> = Loading
     }
 }

@@ -30,7 +30,7 @@ inline fun <reified T> HttpClient.safeRequest(
             emit(NetworkResult.success(body))
         } else {
             // Handle HTTP error
-            emit(NetworkResult.httpError(response.status.value, response.status.description))
+            emit(NetworkResult.error("HTTP Error ${response.status.value}: ${response.status.description}"))
         }
     } catch (e: Exception) {
         throw e
@@ -40,40 +40,30 @@ inline fun <reified T> HttpClient.safeRequest(
     when (e) {
         is RedirectResponseException -> {
             // 3xx responses
-            emit(NetworkResult.httpError(e.response.status.value, "Redirect error: ${e.message}"))
+            emit(NetworkResult.error("Redirect error: ${e.message}"))
         }
 
         is ClientRequestException -> {
             // 4xx responses
-            emit(
-                NetworkResult.httpError(
-                    e.response.status.value,
-                    "Client request error: ${e.message}"
-                )
-            )
+            emit(NetworkResult.error("Client request error: ${e.message}"))
         }
 
         is ServerResponseException -> {
             // 5xx responses
-            emit(
-                NetworkResult.httpError(
-                    e.response.status.value,
-                    "Server response error: ${e.message}"
-                )
-            )
+            emit(NetworkResult.error("Server response error: ${e.message}"))
         }
 
         is IOException -> {
-            // Network errors
-            emit(NetworkResult.networkError("Network error: ${e.message}"))
+            // Network error
+            emit(NetworkResult.error("Network error: ${e.message}"))
         }
 
         else -> {
             if (e is SerializationException || e.message?.contains("Failed to parse") == true) {
-                emit(NetworkResult.parseError("Failed to parse response: ${e.message}"))
+                emit(NetworkResult.error("Failed to parse response: ${e.message}"))
             } else {
                 // Generic errors
-                emit(NetworkResult.genericError(Exception("Generic error: ${e.message}")))
+                emit(NetworkResult.error(Exception("Generic error: ${e.message}")))
             }
         }
     }
