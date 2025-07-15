@@ -9,14 +9,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yoesuv.infinite_scroll.core.di.ViewModelFactory
 import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
 import com.yoesuv.infinite_scroll.feature.home.HomeScreen
 import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridScreen
 import com.yoesuv.infinite_scroll.feature.paging_list.PagingListScreen
+import com.yoesuv.infinite_scroll.feature.paging_list.PagingListViewModel
 import com.yoesuv.infinite_scroll.feature.splash.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -64,7 +67,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
 
         composable<AppRoute.PagingList> {
-            PagingListScreen()
+            val factory = ViewModelFactory.getInstance()
+            val viewModel: PagingListViewModel = viewModel(factory = factory)
+            PagingListScreen(viewModel = viewModel)
         }
 
         composable<AppRoute.PagingGrid> {
