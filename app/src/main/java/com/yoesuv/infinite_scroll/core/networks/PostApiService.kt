@@ -26,7 +26,7 @@ class PostApiService(private val client: HttpClient = AppHttpClient.client) {
      * @return Flow<NetworkResult<List<PostModel>>> The result wrapped in NetworkResult
      */
     fun getPosts(page: Int = DEFAULT_PAGE, limit: Int = DEFAULT_LIMIT): Flow<NetworkResult<List<PostModel>>> {
-        return client.safeRequest {
+        return client.safeRequest<List<PostModel>> {
             get(POSTS_ENDPOINT) {
                 parameter("_page", page)
                 parameter("_limit", limit)
