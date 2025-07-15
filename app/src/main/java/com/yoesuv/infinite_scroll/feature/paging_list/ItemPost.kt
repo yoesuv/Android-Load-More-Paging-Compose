@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.yoesuv.infinite_scroll.models.PostModel
+import com.yoesuv.infinite_scroll.core.models.PostModel
 
 @Composable
 fun ItemPost(post: PostModel?, modifier: Modifier = Modifier) {

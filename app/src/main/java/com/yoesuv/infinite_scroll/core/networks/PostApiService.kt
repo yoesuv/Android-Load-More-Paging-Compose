@@ -1,7 +1,7 @@
 package com.yoesuv.infinite_scroll.core.networks
 
 import com.yoesuv.infinite_scroll.data.Constants.BASE_URL
-import com.yoesuv.infinite_scroll.models.PostModel
+import com.yoesuv.infinite_scroll.core.models.PostModel
 import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.Flow

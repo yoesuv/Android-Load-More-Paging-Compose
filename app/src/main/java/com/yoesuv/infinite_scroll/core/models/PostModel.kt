@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.models
+package com.yoesuv.infinite_scroll.core.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

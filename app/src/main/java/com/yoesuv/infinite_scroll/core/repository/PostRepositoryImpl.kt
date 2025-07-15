@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.yoesuv.infinite_scroll.core.networks.PostApiService
 import com.yoesuv.infinite_scroll.core.paging.PostPagingSource
-import com.yoesuv.infinite_scroll.models.PostModel
+import com.yoesuv.infinite_scroll.core.models.PostModel
 import kotlinx.coroutines.flow.Flow
 
 /**
