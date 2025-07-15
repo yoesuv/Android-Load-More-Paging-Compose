@@ -9,9 +9,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.yoesuv.infinite_scroll.core.di.ViewModelFactory
 import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
+import com.yoesuv.infinite_scroll.feature.detail_post.DetailPostScreen
 import com.yoesuv.infinite_scroll.feature.home.HomeScreen
 import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridScreen
 import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridViewModel
@@ -63,13 +65,27 @@ fun AppNavigation() {
         composable<AppRoute.PagingList> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingListViewModel = viewModel(factory = factory)
-            PagingListScreen(navHost = navController, viewModel = viewModel)
+            PagingListScreen(
+                navHost = navController, 
+                viewModel = viewModel
+            )
         }
 
         composable<AppRoute.PagingGrid> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingGridViewModel = viewModel(factory = factory)
-            PagingGridScreen(navHost = navController, viewModel = viewModel)
+            PagingGridScreen(
+                navHost = navController, 
+                viewModel = viewModel
+            )
+        }
+        
+        composable<AppRoute.DetailPost> { backStackEntry ->
+            val route = backStackEntry.toRoute<AppRoute.DetailPost>()
+            DetailPostScreen(
+                navHost = navController,
+                post = route.post
+            )
         }
     }
 }
