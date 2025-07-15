@@ -1,6 +1,6 @@
 package com.yoesuv.infinite_scroll.core.repository
 
-import com.yoesuv.infinite_scroll.core.networks.NetworkResult
+import androidx.paging.PagingData
 import com.yoesuv.infinite_scroll.models.PostModel
 import kotlinx.coroutines.flow.Flow
 
@@ -10,10 +10,8 @@ import kotlinx.coroutines.flow.Flow
  */
 interface PostRepository {
     /**
-     * Get paginated posts
-     * @param page The page number to fetch
-     * @param limit The number of items per page
-     * @return Flow<NetworkResult<List<PostModel>>> The result wrapped in NetworkResult
+     * Get paginated posts using Paging 3 library
+     * @return Flow<PagingData<PostModel>> A Flow of PagingData containing posts
      */
-    fun getPosts(page: Int, limit: Int): Flow<NetworkResult<List<PostModel>>>
+    fun getPosts(): Flow<PagingData<PostModel>>
 }
