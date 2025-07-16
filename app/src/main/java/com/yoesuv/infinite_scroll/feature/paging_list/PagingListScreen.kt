@@ -1,5 +1,6 @@
 package com.yoesuv.infinite_scroll.feature.paging_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
+import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.Grey50
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
@@ -42,7 +44,11 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
         ) {
             items(pagingItems.itemCount) { index ->
                 val post = pagingItems[index]
-                ItemPost(post = post)
+                ItemPost(post = post, modifier = Modifier.clickable {
+                    post?.let {
+                        navHost.navigate(AppRoute.DetailPost(it))
+                    }
+                })
                 HorizontalDivider(color = Color.LightGray)
             }
 
@@ -75,7 +81,12 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
             when (pagingItems.loadState.append) {
                 is LoadState.Loading -> {
                     item {
-                        Box(modifier = Modifier.fillMaxWidth()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
                             CircularProgressIndicator(
                                 modifier = Modifier
                                     .size(32.dp)

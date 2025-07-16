@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinite_scroll.core.models.PostModel
+import com.yoesuv.infinite_scroll.core.theme.Grey50
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
 @Composable
@@ -36,7 +37,8 @@ fun DetailPostScreen(
                     navHost.navigateUp()
                 }
             )
-        }
+        },
+        contentColor = Grey50
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -45,6 +47,13 @@ fun DetailPostScreen(
                 .background(Color.White)
                 .padding(16.dp)
         ) {
+            Text(
+                "Id : ${post.id}", style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 14.sp
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             // Title
             Text(
                 text = post.title,
@@ -55,9 +64,7 @@ fun DetailPostScreen(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-
             Spacer(modifier = Modifier.height(16.dp))
-
             // Body
             Text(
                 text = post.body,

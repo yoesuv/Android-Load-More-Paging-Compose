@@ -82,20 +82,15 @@ fun AppNavigation() {
                 typeOf<PostModel>() to CustomNavTypes.PostModelType
             )
         ) { backStackEntry ->
-            //val route = backStackEntry.toRoute<AppRoute.DetailPost>()
-            val route = backStackEntry.savedStateHandle.toRoute<AppRoute.DetailPost>(
+            val handle = backStackEntry.savedStateHandle
+            val route = handle.toRoute<AppRoute.DetailPost>(
                 typeMap = mapOf(
                     typeOf<PostModel>() to CustomNavTypes.PostModelType
                 )
             )
             DetailPostScreen(
                 navHost = navController,
-                post = PostModel(
-                    id = 1,
-                    userId = 27,
-                    title = "this is title",
-                    body = "Lorem ipsum dolor sit amit"
-                )
+                post = route.post
             )
         }
     }
