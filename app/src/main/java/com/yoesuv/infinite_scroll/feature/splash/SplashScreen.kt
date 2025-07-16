@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.yoesuv.infinite_scroll.compose.R
+import com.yoesuv.infinite_scroll.core.theme.Grey50
 import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
 import kotlinx.coroutines.delay
 
@@ -33,7 +34,8 @@ fun SplashScreen(
     }
 
     Surface(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        color = Grey50
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

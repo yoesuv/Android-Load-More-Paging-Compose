@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = AppRoute.Splash,
@@ -56,12 +55,7 @@ fun AppNavigation() {
         }
         composable<AppRoute.Home> {
             HomeScreen(
-                onPaginationListClick = {
-                    navController.navigate(AppRoute.PagingList)
-                },
-                onPaginationGridClick = {
-                    navController.navigate(AppRoute.PagingGrid)
-                }
+                navController = navController,
             )
         }
 

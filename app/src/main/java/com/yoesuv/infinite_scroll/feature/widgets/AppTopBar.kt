@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+const val fontSize = 18
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopBar(
@@ -28,7 +30,12 @@ fun AppTopBar(
                 titleContentColor = Color.White
             ),
             title = {
-                Text(text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = title,
+                    fontSize = fontSize.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
             },
             navigationIcon = {
                 IconButton(onClick = navigateUp) {
@@ -47,7 +54,12 @@ fun AppTopBar(
                 titleContentColor = Color.White
             ),
             title = {
-                Text(text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = title,
+                    fontSize = fontSize.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
             }
         )
     }

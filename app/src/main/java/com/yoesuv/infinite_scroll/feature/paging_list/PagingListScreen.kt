@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
+import com.yoesuv.infinite_scroll.core.theme.Grey50
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
 @Composable
@@ -31,7 +32,8 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
             AppTopBar(title = stringResource(R.string.pagination_list), navigateUp = {
                 navHost.navigateUp()
             })
-        }
+        },
+        containerColor = Grey50
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
