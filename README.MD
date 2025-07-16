@@ -7,6 +7,11 @@ https://jsonplaceholder.typicode.com/posts?_page=1&_limit=20
 https://jsonplaceholder.typicode.com/posts?_page=2&_limit=20
 ```
 
+#### Screenshots ####
+| Home | Paging List | Paging Grid |
+|-----|-----|-----|
+| ![](https://i.imgur.com/4j8lXwE.jpeg) | ![](https://i.imgur.com/WjDzfgl.jpeg) | ![](https://i.imgur.com/zhSUpNu.jpeg) |
+
 #### List Library ####
 - [KotlinX Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - [Ktor](https://ktor.io/)
