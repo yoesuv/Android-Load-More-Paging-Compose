@@ -1,5 +1,6 @@
 package com.yoesuv.infinite_scroll.feature.paging_grid
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
+import com.yoesuv.infinite_scroll.core.route.AppRoute
 import com.yoesuv.infinite_scroll.core.theme.Grey50
 import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
 
@@ -49,6 +51,11 @@ fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel)
                 val post = pagingItems[index]
                 ItemGridPost(
                     post = post,
+                    modifier = Modifier.clickable {
+                        post?.let {
+                            navHost.navigate(AppRoute.DetailPost(it))
+                        }
+                    }
                 )
             }
 
