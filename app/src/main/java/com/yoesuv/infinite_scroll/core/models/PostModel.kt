@@ -1,8 +1,6 @@
 package com.yoesuv.infinite_scroll.core.models
 
-import android.os.Parcelable
 import androidx.annotation.Keep
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,7 +15,6 @@ import kotlinx.serialization.Serializable
  * }
  */
 @Keep
-@Parcelize
 @Serializable
 data class PostModel(
     @SerialName("userId")
@@ -31,4 +28,4 @@ data class PostModel(
 
     @SerialName("body")
     val body: String
-) : Parcelable
+)
