@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InfiniteScroll">
         <activity
-            android:name="com.yoesuv.infinite_scroll.MainActivity"
+            android:name="com.yoesuv.infinitescroll.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.InfiniteScroll">
             <intent-filter>
