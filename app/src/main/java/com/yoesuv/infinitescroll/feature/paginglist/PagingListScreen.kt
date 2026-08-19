@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.feature.paging_list
+package com.yoesuv.infinitescroll.feature.paginglist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,33 +22,41 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
-import com.yoesuv.infinite_scroll.core.route.AppRoute
-import com.yoesuv.infinite_scroll.core.theme.Grey50
-import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
+import com.yoesuv.infinitescroll.core.route.AppRoute
+import com.yoesuv.infinitescroll.core.theme.Grey50
+import com.yoesuv.infinitescroll.feature.widgets.appTopBar
 
 @Composable
-fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel) {
+fun pagingListScreen(
+    navHost: NavHostController,
+    viewModel: PagingListViewModel,
+) {
     val pagingItems = viewModel.posts.collectAsLazyPagingItems()
     Scaffold(
         topBar = {
-            AppTopBar(title = stringResource(R.string.pagination_list), navigateUp = {
+            appTopBar(title = stringResource(R.string.pagination_list), navigateUp = {
                 navHost.navigateUp()
             })
         },
-        containerColor = Grey50
+        containerColor = Grey50,
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier
-                .padding(paddingValues = innerPadding)
-                .fillMaxSize()
+            modifier =
+                Modifier
+                    .padding(paddingValues = innerPadding)
+                    .fillMaxSize(),
         ) {
             items(pagingItems.itemCount) { index ->
                 val post = pagingItems[index]
-                ItemPost(post = post, modifier = Modifier.clickable {
-                    post?.let {
-                        navHost.navigate(AppRoute.DetailPost(it))
-                    }
-                })
+                itemPost(
+                    post = post,
+                    modifier =
+                        Modifier.clickable {
+                            post?.let {
+                                navHost.navigate(AppRoute.DetailPost(it))
+                            }
+                        },
+                )
                 HorizontalDivider(color = Color.LightGray)
             }
 
@@ -57,10 +65,11 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
                 is LoadState.Loading -> {
                     item {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp),
+                            contentAlignment = Alignment.Center,
                         ) { CircularProgressIndicator(modifier = Modifier.size(32.dp)) }
                     }
                 }
@@ -69,7 +78,7 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
                     item {
                         Text(
                             "Error loading posts",
-                            color = MaterialTheme.colorScheme.error
+                            color = MaterialTheme.colorScheme.error,
                         )
                     }
                 }
@@ -82,14 +91,16 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
                 is LoadState.Loading -> {
                     item {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier
-                                    .size(32.dp)
+                                modifier =
+                                    Modifier
+                                        .size(32.dp),
                             )
                         }
                     }
@@ -99,7 +110,7 @@ fun PagingListScreen(navHost: NavHostController, viewModel: PagingListViewModel)
                     item {
                         Text(
                             "Error loading more posts",
-                            color = MaterialTheme.colorScheme.error
+                            color = MaterialTheme.colorScheme.error,
                         )
                     }
                 }

@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.feature.detail_post
+package com.yoesuv.infinitescroll.feature.detailpost
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -20,59 +20,64 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.yoesuv.infinite_scroll.compose.R
-import com.yoesuv.infinite_scroll.core.models.PostModel
-import com.yoesuv.infinite_scroll.core.theme.Grey50
-import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
+import com.yoesuv.infinitescroll.core.models.PostModel
+import com.yoesuv.infinitescroll.core.theme.Grey50
+import com.yoesuv.infinitescroll.feature.widgets.appTopBar
 
 @Composable
-fun DetailPostScreen(
+fun detailPostScreen(
     navHost: NavHostController,
-    post: PostModel
+    post: PostModel,
 ) {
     Scaffold(
         topBar = {
-            AppTopBar(
+            appTopBar(
                 title = stringResource(R.string.detail_post),
                 navigateUp = {
                     navHost.navigateUp()
-                }
+                },
             )
         },
-        contentColor = Grey50
+        contentColor = Grey50,
     ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(16.dp),
         ) {
             Text(
-                "Id : ${post.id}", style = TextStyle(
-                    color = Color.Black,
-                    fontSize = 14.sp
-                )
+                "Id : ${post.id}",
+                style =
+                    TextStyle(
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                    ),
             )
             Spacer(modifier = Modifier.height(8.dp))
             // Title
             Text(
                 text = post.title,
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                ),
-                modifier = Modifier.fillMaxWidth()
+                style =
+                    TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                    ),
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(modifier = Modifier.height(16.dp))
             // Body
             Text(
                 text = post.body,
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.fillMaxWidth()
+                style =
+                    TextStyle(
+                        fontSize = 14.sp,
+                        color = Color.Black,
+                    ),
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

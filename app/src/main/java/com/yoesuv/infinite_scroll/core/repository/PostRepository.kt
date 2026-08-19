@@ -1,7 +1,7 @@
-package com.yoesuv.infinite_scroll.core.repository
+package com.yoesuv.infinitescroll.core.repository
 
 import androidx.paging.PagingData
-import com.yoesuv.infinite_scroll.core.models.PostModel
+import com.yoesuv.infinitescroll.core.models.PostModel
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.feature.paging_grid
+package com.yoesuv.infinitescroll.feature.paginggrid
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,38 +24,43 @@ import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
-import com.yoesuv.infinite_scroll.core.route.AppRoute
-import com.yoesuv.infinite_scroll.core.theme.Grey50
-import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
+import com.yoesuv.infinitescroll.core.route.AppRoute
+import com.yoesuv.infinitescroll.core.theme.Grey50
+import com.yoesuv.infinitescroll.feature.widgets.appTopBar
 
 @Composable
-fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel) {
+fun pagingGridScreen(
+    navHost: NavHostController,
+    viewModel: PagingGridViewModel,
+) {
     val pagingItems = viewModel.posts.collectAsLazyPagingItems()
     Scaffold(
         topBar = {
-            AppTopBar(title = stringResource(R.string.pagination_grid), navigateUp = {
+            appTopBar(title = stringResource(R.string.pagination_grid), navigateUp = {
                 navHost.navigateUp()
             })
         },
-        containerColor = Grey50
+        containerColor = Grey50,
     ) { innerPadding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(2.dp),
-            modifier = Modifier
-                .padding(paddingValues = innerPadding)
-                .fillMaxSize()
-                .wrapContentSize()
+            modifier =
+                Modifier
+                    .padding(paddingValues = innerPadding)
+                    .fillMaxSize()
+                    .wrapContentSize(),
         ) {
             items(pagingItems.itemCount) { index ->
                 val post = pagingItems[index]
-                ItemGridPost(
+                itemGridPost(
                     post = post,
-                    modifier = Modifier.clickable {
-                        post?.let {
-                            navHost.navigate(AppRoute.DetailPost(it))
-                        }
-                    }
+                    modifier =
+                        Modifier.clickable {
+                            post?.let {
+                                navHost.navigate(AppRoute.DetailPost(it))
+                            }
+                        },
                 )
             }
 
@@ -64,10 +69,11 @@ fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel)
                 is LoadState.Loading -> {
                     item(span = { GridItemSpan(2) }) {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp),
+                            contentAlignment = Alignment.Center,
                         ) { CircularProgressIndicator(modifier = Modifier.size(32.dp)) }
                     }
                 }
@@ -75,14 +81,15 @@ fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel)
                 is LoadState.Error -> {
                     item(span = { GridItemSpan(2) }) {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             Text(
                                 "Error loading posts",
-                                color = MaterialTheme.colorScheme.error
+                                color = MaterialTheme.colorScheme.error,
                             )
                         }
                     }
@@ -96,13 +103,14 @@ fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel)
                 is LoadState.Loading -> {
                     item(span = { GridItemSpan(2) }) {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator(
-                                modifier = Modifier.size(32.dp)
+                                modifier = Modifier.size(32.dp),
                             )
                         }
                     }
@@ -111,14 +119,15 @@ fun PagingGridScreen(navHost: NavHostController, viewModel: PagingGridViewModel)
                 is LoadState.Error -> {
                     item(span = { GridItemSpan(2) }) {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             Text(
                                 "Error loading more posts",
-                                color = MaterialTheme.colorScheme.error
+                                color = MaterialTheme.colorScheme.error,
                             )
                         }
                     }

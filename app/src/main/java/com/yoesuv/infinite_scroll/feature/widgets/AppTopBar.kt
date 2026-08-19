@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.feature.widgets
+package com.yoesuv.infinitescroll.feature.widgets
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
@@ -14,27 +14,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-const val fontSize = 18
+const val FONT_SIZE = 18
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppTopBar(
+fun appTopBar(
     title: String,
     canBack: Boolean = true,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
 ) {
     if (canBack) {
         TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                titleContentColor = Color.White
-            ),
+            colors =
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White,
+                ),
             title = {
                 Text(
                     text = title,
-                    fontSize = fontSize.sp,
+                    fontSize = FONT_SIZE.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = Color.White,
                 )
             },
             navigationIcon = {
@@ -42,25 +43,26 @@ fun AppTopBar(
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                         contentDescription = "back",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
-            }
+            },
         )
     } else {
         TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                titleContentColor = Color.White
-            ),
+            colors =
+                TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White,
+                ),
             title = {
                 Text(
                     text = title,
-                    fontSize = fontSize.sp,
+                    fontSize = FONT_SIZE.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = Color.White,
                 )
-            }
+            },
         )
     }
 }

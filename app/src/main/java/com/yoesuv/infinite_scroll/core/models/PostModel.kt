@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.core.models
+package com.yoesuv.infinitescroll.core.models
 
 import androidx.annotation.Keep
 import kotlinx.serialization.SerialName
@@ -19,13 +19,10 @@ import kotlinx.serialization.Serializable
 data class PostModel(
     @SerialName("userId")
     val userId: Int,
-
     @SerialName("id")
     val id: Int,
-
     @SerialName("title")
     val title: String,
-
     @SerialName("body")
-    val body: String
+    val body: String,
 )

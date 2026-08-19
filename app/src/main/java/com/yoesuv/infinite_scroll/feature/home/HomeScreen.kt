@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.feature.home
+package com.yoesuv.infinitescroll.feature.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,40 +22,40 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.yoesuv.infinite_scroll.compose.R
-import com.yoesuv.infinite_scroll.core.route.AppRoute
-import com.yoesuv.infinite_scroll.core.theme.Grey50
-import com.yoesuv.infinite_scroll.feature.widgets.AppTopBar
+import com.yoesuv.infinitescroll.core.route.AppRoute
+import com.yoesuv.infinitescroll.core.theme.Grey50
+import com.yoesuv.infinitescroll.feature.widgets.appTopBar
 
 @Composable
-fun HomeScreen(
-    navController: NavHostController,
-) {
+fun homeScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
-            AppTopBar(title = stringResource(R.string.app_name), canBack = false)
+            appTopBar(title = stringResource(R.string.app_name), canBack = false)
         },
-        containerColor = Grey50
+        containerColor = Grey50,
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxSize()
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize()
+                    .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Button(
                 onClick = {
                     navController.navigate(AppRoute.PagingList)
-                }
+                },
             ) {
                 Text(
                     text = stringResource(R.string.pagination_list),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    )
+                    style =
+                        TextStyle(
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                        ),
                 )
             }
 
@@ -64,15 +64,16 @@ fun HomeScreen(
             Button(
                 onClick = {
                     navController.navigate(AppRoute.PagingGrid)
-                }
+                },
             ) {
                 Text(
                     text = stringResource(R.string.pagination_grid),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    )
+                    style =
+                        TextStyle(
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                        ),
                 )
             }
         }
@@ -81,6 +82,6 @@ fun HomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
+private fun homeScreenPreview() {
+    homeScreen(navController = rememberNavController())
 }

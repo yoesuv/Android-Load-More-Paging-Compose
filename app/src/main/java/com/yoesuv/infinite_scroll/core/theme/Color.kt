@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.core.theme
+package com.yoesuv.infinitescroll.core.theme
 
 import androidx.compose.ui.graphics.Color
 

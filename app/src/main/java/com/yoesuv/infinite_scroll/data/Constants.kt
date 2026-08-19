@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll.data
+package com.yoesuv.infinitescroll.data
 
 object Constants {
     const val SEPARATOR = "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"

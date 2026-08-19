@@ -1,4 +1,4 @@
-package com.yoesuv.infinite_scroll
+package com.yoesuv.infinitescroll
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,18 +10,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.yoesuv.infinite_scroll.core.di.ViewModelFactory
-import com.yoesuv.infinite_scroll.core.models.PostModel
-import com.yoesuv.infinite_scroll.core.route.AppRoute
-import com.yoesuv.infinite_scroll.core.theme.InfiniteScrollTheme
-import com.yoesuv.infinite_scroll.feature.detail_post.DetailPostScreen
-import com.yoesuv.infinite_scroll.feature.home.HomeScreen
-import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridScreen
-import com.yoesuv.infinite_scroll.feature.paging_grid.PagingGridViewModel
-import com.yoesuv.infinite_scroll.feature.paging_list.PagingListScreen
-import com.yoesuv.infinite_scroll.feature.paging_list.PagingListViewModel
-import com.yoesuv.infinite_scroll.feature.splash.SplashScreen
-import com.yoesuv.infinite_scroll.utils.CustomNavTypes
+import com.yoesuv.infinitescroll.core.di.ViewModelFactory
+import com.yoesuv.infinitescroll.core.models.PostModel
+import com.yoesuv.infinitescroll.core.route.AppRoute
+import com.yoesuv.infinitescroll.core.theme.infiniteScrollTheme
+import com.yoesuv.infinitescroll.feature.detailpost.detailPostScreen
+import com.yoesuv.infinitescroll.feature.home.homeScreen
+import com.yoesuv.infinitescroll.feature.paginggrid.PagingGridViewModel
+import com.yoesuv.infinitescroll.feature.paginggrid.pagingGridScreen
+import com.yoesuv.infinitescroll.feature.paginglist.PagingListViewModel
+import com.yoesuv.infinitescroll.feature.paginglist.pagingListScreen
+import com.yoesuv.infinitescroll.feature.splash.splashScreen
+import com.yoesuv.infinitescroll.utils.CustomNavTypes
 import kotlin.reflect.typeOf
 
 class MainActivity : ComponentActivity() {
@@ -29,32 +29,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            InfiniteScrollTheme (dynamicColor = false) {
-                AppNavigation()
+            infiniteScrollTheme(dynamicColor = false) {
+                appNavigation()
             }
         }
     }
 }
 
 @Composable
-fun AppNavigation() {
+fun appNavigation() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = AppRoute.Splash,
     ) {
         composable<AppRoute.Splash> {
-            SplashScreen(
+            splashScreen(
                 onNavigateToHome = {
                     navController.navigate(AppRoute.Home) {
                         // Clear the back stack so user can't go back to splash
                         popUpTo(AppRoute.Splash) { inclusive = true }
                     }
-                }
+                },
             )
         }
         composable<AppRoute.Home> {
-            HomeScreen(
+            homeScreen(
                 navController = navController,
             )
         }
@@ -62,35 +62,38 @@ fun AppNavigation() {
         composable<AppRoute.PagingList> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingListViewModel = viewModel(factory = factory)
-            PagingListScreen(
+            pagingListScreen(
                 navHost = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
             )
         }
 
         composable<AppRoute.PagingGrid> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingGridViewModel = viewModel(factory = factory)
-            PagingGridScreen(
+            pagingGridScreen(
                 navHost = navController,
-                viewModel = viewModel
+                viewModel = viewModel,
             )
         }
 
         composable<AppRoute.DetailPost>(
-            typeMap = mapOf(
-                typeOf<PostModel>() to CustomNavTypes.PostModelType
-            )
+            typeMap =
+                mapOf(
+                    typeOf<PostModel>() to CustomNavTypes.PostModelType,
+                ),
         ) { backStackEntry ->
             val handle = backStackEntry.savedStateHandle
-            val route = handle.toRoute<AppRoute.DetailPost>(
-                typeMap = mapOf(
-                    typeOf<PostModel>() to CustomNavTypes.PostModelType
+            val route =
+                handle.toRoute<AppRoute.DetailPost>(
+                    typeMap =
+                        mapOf(
+                            typeOf<PostModel>() to CustomNavTypes.PostModelType,
+                        ),
                 )
-            )
-            DetailPostScreen(
+            detailPostScreen(
                 navHost = navController,
-                post = route.post
+                post = route.post,
             )
         }
     }
