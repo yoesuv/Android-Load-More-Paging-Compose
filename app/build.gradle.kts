@@ -4,27 +4,33 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+val appApplicationId = "com.yoesuv.infinite_scroll.compose"
+val appVersionName = "1.0.1"
+
+base {
+    archivesName = "$appApplicationId-v$appVersionName"
+}
+
 android {
-    namespace = "com.yoesuv.infinite_scroll.compose"
+    namespace = appApplicationId
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.yoesuv.infinite_scroll.compose"
+        applicationId = appApplicationId
         minSdk = 24
         targetSdk = 37
         versionCode = 1
-        versionName = "1.0.1"
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -35,14 +41,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-        }
-    }
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }
 
