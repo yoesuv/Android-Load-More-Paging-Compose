@@ -24,13 +24,17 @@ import androidx.navigation.compose.rememberNavController
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinitescroll.core.route.AppRoute
 import com.yoesuv.infinitescroll.core.theme.Grey50
-import com.yoesuv.infinitescroll.feature.widgets.appTopBar
+import com.yoesuv.infinitescroll.feature.widgets.AppTopBar
 
 @Composable
-fun homeScreen(navController: NavHostController) {
+fun HomeScreen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
+        modifier = modifier,
         topBar = {
-            appTopBar(title = stringResource(R.string.app_name), canBack = false)
+            AppTopBar(title = stringResource(R.string.app_name), canBack = false)
         },
         containerColor = Grey50,
     ) { paddingValues ->
@@ -82,6 +86,6 @@ fun homeScreen(navController: NavHostController) {
 
 @Preview(showBackground = true)
 @Composable
-private fun homeScreenPreview() {
-    homeScreen(navController = rememberNavController())
+private fun HomeScreenPreview() {
+    HomeScreen(navController = rememberNavController())
 }

@@ -13,14 +13,14 @@ import androidx.navigation.toRoute
 import com.yoesuv.infinitescroll.core.di.ViewModelFactory
 import com.yoesuv.infinitescroll.core.models.PostModel
 import com.yoesuv.infinitescroll.core.route.AppRoute
-import com.yoesuv.infinitescroll.core.theme.infiniteScrollTheme
-import com.yoesuv.infinitescroll.feature.detailpost.detailPostScreen
-import com.yoesuv.infinitescroll.feature.home.homeScreen
+import com.yoesuv.infinitescroll.core.theme.InfiniteScrollTheme
+import com.yoesuv.infinitescroll.feature.detailpost.DetailPostScreen
+import com.yoesuv.infinitescroll.feature.home.HomeScreen
+import com.yoesuv.infinitescroll.feature.paginggrid.PagingGridScreen
 import com.yoesuv.infinitescroll.feature.paginggrid.PagingGridViewModel
-import com.yoesuv.infinitescroll.feature.paginggrid.pagingGridScreen
+import com.yoesuv.infinitescroll.feature.paginglist.PagingListScreen
 import com.yoesuv.infinitescroll.feature.paginglist.PagingListViewModel
-import com.yoesuv.infinitescroll.feature.paginglist.pagingListScreen
-import com.yoesuv.infinitescroll.feature.splash.splashScreen
+import com.yoesuv.infinitescroll.feature.splash.SplashScreen
 import com.yoesuv.infinitescroll.utils.CustomNavTypes
 import kotlin.reflect.typeOf
 
@@ -29,22 +29,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            infiniteScrollTheme(dynamicColor = false) {
-                appNavigation()
+            InfiniteScrollTheme(dynamicColor = false) {
+                AppNavigation()
             }
         }
     }
 }
 
 @Composable
-fun appNavigation() {
+fun AppNavigation() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = AppRoute.Splash,
     ) {
         composable<AppRoute.Splash> {
-            splashScreen(
+            SplashScreen(
                 onNavigateToHome = {
                     navController.navigate(AppRoute.Home) {
                         // Clear the back stack so user can't go back to splash
@@ -54,7 +54,7 @@ fun appNavigation() {
             )
         }
         composable<AppRoute.Home> {
-            homeScreen(
+            HomeScreen(
                 navController = navController,
             )
         }
@@ -62,7 +62,7 @@ fun appNavigation() {
         composable<AppRoute.PagingList> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingListViewModel = viewModel(factory = factory)
-            pagingListScreen(
+            PagingListScreen(
                 navHost = navController,
                 viewModel = viewModel,
             )
@@ -71,7 +71,7 @@ fun appNavigation() {
         composable<AppRoute.PagingGrid> {
             val factory = ViewModelFactory.getInstance()
             val viewModel: PagingGridViewModel = viewModel(factory = factory)
-            pagingGridScreen(
+            PagingGridScreen(
                 navHost = navController,
                 viewModel = viewModel,
             )
@@ -91,7 +91,7 @@ fun appNavigation() {
                             typeOf<PostModel>() to CustomNavTypes.PostModelType,
                         ),
                 )
-            detailPostScreen(
+            DetailPostScreen(
                 navHost = navController,
                 post = route.post,
             )

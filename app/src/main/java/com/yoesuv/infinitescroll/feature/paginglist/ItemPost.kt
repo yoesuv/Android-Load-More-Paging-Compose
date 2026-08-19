@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.yoesuv.infinitescroll.core.models.PostModel
 
 @Composable
-fun itemPost(
+fun ItemPost(
     post: PostModel?,
     modifier: Modifier = Modifier,
 ) {
@@ -40,8 +40,8 @@ fun itemPost(
 
 @Preview(showBackground = true)
 @Composable
-fun itemPostPreview() {
-    itemPost(
+private fun ItemPostPreview() {
+    ItemPost(
         post =
             PostModel(
                 userId = 1,

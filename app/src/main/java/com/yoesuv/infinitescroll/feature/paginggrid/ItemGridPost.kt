@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.yoesuv.infinitescroll.core.models.PostModel
 
 @Composable
-fun itemGridPost(
+fun ItemGridPost(
     post: PostModel?,
     modifier: Modifier = Modifier,
 ) {
@@ -54,8 +54,8 @@ fun itemGridPost(
 
 @Preview(showBackground = true)
 @Composable
-fun itemGridPostPreview() {
-    itemGridPost(
+private fun ItemGridPostPreview() {
+    ItemGridPost(
         post =
             PostModel(
                 userId = 1,

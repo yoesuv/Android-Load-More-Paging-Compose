@@ -22,16 +22,18 @@ import androidx.navigation.NavHostController
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinitescroll.core.models.PostModel
 import com.yoesuv.infinitescroll.core.theme.Grey50
-import com.yoesuv.infinitescroll.feature.widgets.appTopBar
+import com.yoesuv.infinitescroll.feature.widgets.AppTopBar
 
 @Composable
-fun detailPostScreen(
+fun DetailPostScreen(
     navHost: NavHostController,
     post: PostModel,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
-            appTopBar(
+            AppTopBar(
                 title = stringResource(R.string.detail_post),
                 navigateUp = {
                     navHost.navigateUp()

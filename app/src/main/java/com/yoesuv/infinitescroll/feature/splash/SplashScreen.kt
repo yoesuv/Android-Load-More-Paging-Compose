@@ -17,11 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinitescroll.core.theme.Grey50
-import com.yoesuv.infinitescroll.core.theme.infiniteScrollTheme
+import com.yoesuv.infinitescroll.core.theme.InfiniteScrollTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun splashScreen(onNavigateToHome: () -> Unit = {}) {
+fun SplashScreen(
+    onNavigateToHome: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
     // Create a current-state holder that won't change on recomposition
     val currentOnNavigateToHome by rememberUpdatedState(onNavigateToHome)
 
@@ -32,7 +35,7 @@ fun splashScreen(onNavigateToHome: () -> Unit = {}) {
     }
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = Grey50,
     ) {
         Box(
@@ -49,8 +52,8 @@ fun splashScreen(onNavigateToHome: () -> Unit = {}) {
 
 @Preview
 @Composable
-fun splashScreenPreview() {
-    infiniteScrollTheme {
-        splashScreen()
+private fun SplashScreenPreview() {
+    InfiniteScrollTheme {
+        SplashScreen()
     }
 }

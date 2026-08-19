@@ -30,7 +30,7 @@ private val LIGHT_COLOR_SCHEME =
     )
 
 @Composable
-fun infiniteScrollTheme(
+fun InfiniteScrollTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

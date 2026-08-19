@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -18,13 +19,15 @@ const val FONT_SIZE = 18
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun appTopBar(
+fun AppTopBar(
     title: String,
     canBack: Boolean = true,
     navigateUp: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     if (canBack) {
         TopAppBar(
+            modifier = modifier,
             colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -50,6 +53,7 @@ fun appTopBar(
         )
     } else {
         TopAppBar(
+            modifier = modifier,
             colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,

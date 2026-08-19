@@ -26,17 +26,19 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.yoesuv.infinite_scroll.compose.R
 import com.yoesuv.infinitescroll.core.route.AppRoute
 import com.yoesuv.infinitescroll.core.theme.Grey50
-import com.yoesuv.infinitescroll.feature.widgets.appTopBar
+import com.yoesuv.infinitescroll.feature.widgets.AppTopBar
 
 @Composable
-fun pagingGridScreen(
+fun PagingGridScreen(
     navHost: NavHostController,
     viewModel: PagingGridViewModel,
+    modifier: Modifier = Modifier,
 ) {
     val pagingItems = viewModel.posts.collectAsLazyPagingItems()
     Scaffold(
+        modifier = modifier,
         topBar = {
-            appTopBar(title = stringResource(R.string.pagination_grid), navigateUp = {
+            AppTopBar(title = stringResource(R.string.pagination_grid), navigateUp = {
                 navHost.navigateUp()
             })
         },
@@ -53,7 +55,7 @@ fun pagingGridScreen(
         ) {
             items(pagingItems.itemCount) { index ->
                 val post = pagingItems[index]
-                itemGridPost(
+                ItemGridPost(
                     post = post,
                     modifier =
                         Modifier.clickable {
